@@ -1,0 +1,55 @@
+\documentclass[a4paper,11pt,twocolumn]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%%\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{theorem}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+\title{Prolog, la reprise}
+\author{Bernard Tatin}
+\date{\today}
+
+\newtheorem{defn}{Définition}
+\newtheorem{thm}{Théorème}
+
+\lstset{emph={%  
+   {:-}%
+     },emphstyle={\color{red}\bfseries\underbar}%
+}%
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{les bases}
+Commençons par quelque chose de simple:
+
+\begin{lstlisting}[language=Prolog]
+nat(X):-
+	integer(X),
+	X > -1.
+\end{lstlisting}
+
+A noter que la version suivante, plus \emph{naturelle}, provoque une erreur:
+
+\begin{lstlisting}[language=Prolog]
+nat(X):-
+	integer(X),
+	X >= 0.
+\end{lstlisting}
+
+Pour rappel, \texttt{,} est la \textit{conjonction} soit le \textit{et} logique, tandis que \texttt{;} indique \textit{disjonction}, soit le \textit{ou} logique.
+
+
+\end{document}
