@@ -1,0 +1,126 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+.depend*
+obj/
+
+# Precompiled Headers
+*.gch
+*.pch
+*.d
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+core
+*.full
+*.debug
+
+*-m32
+*-m64
+objs*/
+.dep.inc
+
+# Debug files
+*.dSYM/
+
+# ide files
+nbproject/
+.project
+.cproject
+.*.swp
+*~
+.frama-c/
+*.frama
+.idea/
+*.komodoproject
+html/
+.vscode/
+cmake-build-debug/
+
+# watcom
+*.err
+*.mk1
+*.lk1
+*.map
+*.sym
+*.tgt
+*.?br
+*.lst
+*.def
+
+# trash
+log
+*.log
+*.tmp
+tmp/
+log/
+
+# compilation product
+x-top/src/solar-stuff
+hexdump*.mk
+
+# make
+.make.state.*
+
+# builds
+build/
+dist/
+
+# Latex
+
+*.aux
+*.log
+*.out
+*.toc
+*-converted-to.pdf
+*.bbl
+*.blg
+*.bcf
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lol
+diamondrule.pdf
+main.pdf
+
+tags
+build/
+
+# backup files
+*~
+.*.swp
+
+# archives
+*.gz
+*.tgz
+*.tar.*
+*.zip
+
+# IDEs
+*.fls
+*.*_latexmk
+*.run.xml
+compile_commands.json
+
+# generated documents
+*.pdf
