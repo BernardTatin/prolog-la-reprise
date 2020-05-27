@@ -3,7 +3,7 @@
 # ============================================
 
 PL = swipl
-PLOPTIONS = --goal=main --stand_alone=true 
+PLOPTIONS = -p library=./lib:./samples_lib --goal=main --stand_alone=true 
 ## --quiet 
 
 INDEXLIB = ./lib/INDEX.pl
@@ -25,7 +25,7 @@ $(INDEXSLIB): $(SRCSLIB)
 	swipl -g 'make_library_index(samples_lib)' -t halt
 
 $(EXETF): $(INDEXLIB) $(INDEXSLIB) $(SRCTF) $(MAINTF).pl 
-	$(PL) $(PLOPTIONS) -o $@ -c load.pl $(SRCTF) $(MAINTF).pl
+	$(PL) $(PLOPTIONS) -o $@ -c $(SRCTF) $(MAINTF).pl
 
 clean:
 	rm -fv $(EXETF) $(INDEXLIB) $(INDEXSLIB)
