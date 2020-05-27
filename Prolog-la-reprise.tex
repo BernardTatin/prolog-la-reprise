@@ -33,6 +33,8 @@
 \tableofcontents
 
 \chapter{les bases}
+
+\section{le langage}
 Commençons par quelque chose de simple:
 
 \begin{lstlisting}[language=Prolog]
@@ -51,5 +53,25 @@ nat(X):-
 
 Pour rappel, \texttt{,} est la \textit{conjonction} soit le \textit{et} logique, tandis que \texttt{;} indique \textit{disjonction}, soit le \textit{ou} logique.
 
+\section{l'environnement \texttt{swipl}}
 
+C'est simple à lancer: \texttt{swipl}. 
+
+Pour profiter de répertoire contenant des bibliothèques personelle, il faut, autant pour la compilation que pour l'interprétation, rajouter le paramètre:
+\begin{lstlisting}[language=sh] 
+-p library=$(pwd)/lib:...
+\end{lstlisting}
+ 
+à moduler en fonction de la configuration.
+
+Pour créer un binaire exécutable, il faut lancer la commande:
+\begin{lstlisting}[language=sh]
+swipl -p library=... \\
+    --goal=main \\
+    --stand_alone=true \\
+    -o binary \\
+    -c sourcefiles ...
+\end{lstlisting}
+
+Pour des exemples plus complets, consultez le(s) \texttt{Makefile}(s) des répertoires sources. 
 \end{document}
