@@ -31,10 +31,10 @@ iexecute(Op, E1, E2, Out) :-
 
 show_out(N) :-
     integer(N),
-    format('~w ~46t ~d~9|~n', ['>>', N]).
+    format('~w ~46t ~d~12|~n', ['>>', N]).
 
 show_out(X) :-
-    format('~w ~46t ~g~9|~n', ['>>', X]).
+    format('~w ~46t ~g~12|~n', ['>>', X]).
 
 execute(node(number, Out), Out).
 execute(node(+, E1, E2), Out) :- iexecute(isum, E1, E2, Out).
@@ -64,6 +64,7 @@ tst_execute :-
 
 str_test :-
     execute('4 * (6 / 3.2)'),
+    execute('4 * (7 / 3)'),
     execute('4 * (6 / 3)'),
     execute("4 * (6 - 3)"),
     execute("4 * (6 + 3)"),
