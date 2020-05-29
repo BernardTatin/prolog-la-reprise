@@ -29,6 +29,13 @@ iexecute(Op, E1, E2, Out) :-
     execute(E2, OutE2),
     apply(Op, [OutE1, OutE2, Out]).
 
+show_out(N) :-
+    integer(N),
+    format('~w ~46t ~d~9|~n', ['>>', N]).
+
+show_out(X) :-
+    format('~w ~46t ~g~9|~n', ['>>', X]).
+
 execute(node(number, Out), Out).
 execute(node(+, E1, E2), Out) :- iexecute(isum, E1, E2, Out).
 execute(node(-, E1, E2), Out) :- iexecute(isub, E1, E2, Out).
@@ -38,23 +45,26 @@ execute(node(/, E1, E2), Out) :- iexecute(idiv, E1, E2, Out).
 execute(StrProgram) :-
     \+ is_list(StrProgram),
     %% see: https://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/nlp.html%27)
+    %% tokenize_atom supress white spaces, whic make
+    %% the grammar definition easier
     tokenize_atom(StrProgram, TokenList),
     execute(TokenList).
-
 
 execute(Program) :-
     phrase(program(Tree), Program),
     execute(Tree, Out),
-    format('~w ~46t ~d~9|~n', ['>>', Out]).
+    show_out(Out).
 
 tst_execute :-
+    execute([4, *, '(', 6, /, 3.2, ')']),
     execute([4, *, '(', 6, /, 3, ')']),
     execute([4, *, '(', 6, -, 3, ')']),
     execute([4, *, '(', 6, +, 3, ')']),
     !.
 
 str_test :-
-    execute("4 * (6 / 3)"),
+    execute('4 * (6 / 3.2)'),
+    execute('4 * (6 / 3)'),
     execute("4 * (6 - 3)"),
     execute("4 * (6 + 3)"),
     !.
