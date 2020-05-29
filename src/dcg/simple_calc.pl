@@ -8,9 +8,9 @@
 %% ===============================
 
 %% swipl needs it
-:- use_module(library(apply)).
+/*
 :- use_module(library(porter_stem)).
-
+*/
 /*
  grammar definition
 
@@ -39,14 +39,14 @@ idiv(A, B, S) :- S is A / B.
 iexecute(Op, E1, E2, Out) :-
     execute(E1, OutE1),
     execute(E2, OutE2),
-    apply(Op, [OutE1, OutE2, Out]).
+    call(Op, OutE1, OutE2, Out).
 
 show_out(N) :-
     integer(N),
-    format('~w ~46t ~d~12|~n', ['>>', N]).
+    format('~w ~` t ~d~12|~n', ['|>', N]).
 
 show_out(X) :-
-    format('~w ~46t ~g~12|~n', ['>>', X]).
+    format('~w ~` t ~f~19|~n', ['|>', X]).
 
 /*
     executions
