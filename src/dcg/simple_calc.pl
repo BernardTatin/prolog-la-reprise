@@ -8,6 +8,7 @@
 %% ===============================
 
 :- use_module(library(apply)).
+:- use_module(library(porter_stem)).
 
 %% 
 program(node(O, E1, E2)) --> expr(E1), oper(O), expr(E2).
@@ -18,24 +19,6 @@ oper(*) --> [*].
 oper(/) --> [/].
 oper(-) --> [-].
 
-/*
-execute(node(+, E1, E2), Out) :-
-    execute(E1, OutE1),
-    execute(E2, OutE2),
-    Out is OutE1 + OutE2.
-execute(node(*, E1, E2), Out) :-
-    execute(E1, OutE1),
-    execute(E2, OutE2),
-    Out is OutE1 * OutE2.
-execute(node(/, E1, E2), Out) :-
-    execute(E1, OutE1),
-    execute(E2, OutE2),
-    Out is OutE1 / OutE2.
-execute(node(-, E1, E2), Out) :-
-    execute(E1, OutE1),
-    execute(E2, OutE2),
-    Out is OutE1 - OutE2.
-*/
 isum(A, B, S) :- S is A + B.
 imul(A, B, S) :- S is A * B.
 isub(A, B, S) :- S is A - B.
@@ -52,12 +35,26 @@ execute(node(-, E1, E2), Out) :- iexecute(isub, E1, E2, Out).
 execute(node(*, E1, E2), Out) :- iexecute(imul, E1, E2, Out).
 execute(node(/, E1, E2), Out) :- iexecute(idiv, E1, E2, Out).
 
+execute(StrProgram) :-
+    \+ is_list(StrProgram),
+    %% see: https://www.swi-prolog.org/pldoc/doc_for?object=section(%27packages/nlp.html%27)
+    tokenize_atom(StrProgram, TokenList),
+    execute(TokenList).
+
+
 execute(Program) :-
     phrase(program(Tree), Program),
     execute(Tree, Out),
-    write('> '), format(Out), nl.
+    format('~w ~46t ~d~9|~n', ['>>', Out]).
 
 tst_execute :-
     execute([4, *, '(', 6, /, 3, ')']),
     execute([4, *, '(', 6, -, 3, ')']),
-    execute([4, *, '(', 6, +, 3, ')']).
+    execute([4, *, '(', 6, +, 3, ')']),
+    !.
+
+str_test :-
+    execute("4 * (6 / 3)"),
+    execute("4 * (6 - 3)"),
+    execute("4 * (6 + 3)"),
+    !.
