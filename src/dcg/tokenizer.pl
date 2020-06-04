@@ -5,7 +5,7 @@
 :- module(tokenizer, [tokenize/2]).
 
 /*
-    tokenize(+String, -ListOfTokens)
+    on_end_of_word(+Word, +Accumulator, -NewAccumulator)
  */
 
 on_end_of_word([], Accumulator, Accumulator).
@@ -14,11 +14,19 @@ on_end_of_word(Word, Accumulator, NewAccumulator) :-
     string_chars(Str, RWord),
     append(Accumulator, [Str], NewAccumulator).
 
+/*
+    on_space(+Chars, +Word, +Accumulator, -Result)
+ */
+
 on_space(Chars, [], Accumulator, Result) :-
     cut_chars(Chars, [], Accumulator, Result).
 on_space(Chars, Word, Accumulator, Result) :-
     on_end_of_word(Word, Accumulator, NewAccumulator),
     cut_chars(Chars, [], NewAccumulator, Result).
+
+/*
+    cut_chars(+Chars, +Word, +Accumulator, -Result)
+ */
 
 cut_chars([], [], Accumulator, Accumulator).
 cut_chars([], Word, Accumulator, Result) :-
@@ -35,6 +43,10 @@ cut_chars([W | Rest], Word, Accumulator, Result) :-
     
 cut_chars([W | Rest], Word, Accumulator, Result) :-
     cut_chars(Rest, [W | Word], Accumulator, Result).
+
+/*
+    tokenize(+String, -ListOfTokens)
+ */
 
 tokenize(String, ListOfTokens) :-
     % String to a list of atoms
