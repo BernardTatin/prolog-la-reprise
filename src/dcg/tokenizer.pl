@@ -20,11 +20,9 @@ on_space(Chars, Word, Accumulator, Result) :-
     on_end_of_word(Word, Accumulator, NewAccumulator),
     cut_chars(Chars, [], NewAccumulator, Result).
 
-cut_chars([], [], Accumulator, Accumulator) :- 
-    !.
+cut_chars([], [], Accumulator, Accumulator).
 cut_chars([], Word, Accumulator, Result) :-
-    on_end_of_word(Word, Accumulator, Result),
-    !.
+    on_end_of_word(Word, Accumulator, Result).
 
 cut_chars([W | Rest], Word, Accumulator, Result) :-
     is_space(W),
@@ -42,4 +40,6 @@ tokenize(String, ListOfTokens) :-
     % String to a list of atoms
     string_chars(String, Chars),
     cut_chars(Chars, [], [], ListOfTokens),
+    % this cut is really useful !
+    % we only have one solution (or unknown error)
     !.
