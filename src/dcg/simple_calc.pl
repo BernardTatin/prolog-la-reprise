@@ -39,6 +39,10 @@ idiv(A, B, S) :- S is A / B.
 iexecute(Op, E1, E2, Out) :-
     execute(E1, OutE1),
     execute(E2, OutE2),
+    %% see https://www.swi-prolog.org/pldoc/doc_for?object=apply/2
+    %% <quote>
+    %%      New code should use call/[2..] if the length of List is fixed.
+    %% </quote>
     call(Op, OutE1, OutE2, Out).
 
 show_out(N) :-
