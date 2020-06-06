@@ -15,7 +15,7 @@
 	on_end_of_word([], Accumulator, Accumulator).
 	on_end_of_word(Word, Accumulator, NewAccumulator) :-
 		::reverse(Word, RWord),
-		string_chars(Str, RWord),
+		::string_2_chars(Str, RWord),
 		::append(Accumulator, [Str], NewAccumulator).
 
 	/*
@@ -57,7 +57,12 @@
 
 	tokenize(String, ListOfTokens) :-
 		% String to a list of atoms
-		string_chars(String, Chars),
+/* 		:- if(current_logtalk_flag(prolog_dialect, gnu)).
+			::string_2_chars(String, Chars),
+		:- else.
+			string_2_chars(String, Chars),
+		:- endif. */
+		::string_2_chars(String, Chars),
 		cut_chars(Chars, [], [], ListOfTokens),
 		% this cut is really useful !
 		% we only have one solution (or unknown error)
