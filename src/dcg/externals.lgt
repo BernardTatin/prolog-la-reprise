@@ -15,36 +15,36 @@
 	]).
 
     :- public(reverse/2).
-	reverse(InputList, OutputList) :-
-		{reverse(InputList, OutputList)}.
+        reverse(InputList, OutputList) :-
+            {reverse(InputList, OutputList)}.
 	:- public(append/3).
-	append(L1, L2, L3) :-
-		{append(L1, L2, L3)}.
+        append(L1, L2, L3) :-
+            {append(L1, L2, L3)}.
 
 	:- public(is_space/1).
-	:- if(current_logtalk_flag(prolog_dialect, swi)).
-		is_space(Char) :-
-			{is_space(Char)}.
-	:- else.
-		is_space(' ').
-		is_space('\t').
-		is_space('\n').
-	:- endif.
+        :- if(current_logtalk_flag(prolog_dialect, swi)).
+            is_space(Char) :-
+                {is_space(Char)}.
+        :- else.
+            is_space(' ').
+            is_space('\t').
+            is_space('\n').
+        :- endif.
 	:- public(is_punct/1).
-	:- if(current_logtalk_flag(prolog_dialect, swi)).
-		is_punct(Char) :-
-			{is_punct(Char)}.
-	:- else.
-		is_punct(C) :-
-			member(C, ['.', ',', ';', ':', '!', '+', '-', '*', '/', '=']).
-	:- endif.
+        :- if(current_logtalk_flag(prolog_dialect, swi)).
+            is_punct(Char) :-
+                {is_punct(Char)}.
+        :- else.
+            is_punct(C) :-
+                member(C, ['.', ',', ';', ':', '!', '+', '-', '*', '/', '=']).
+        :- endif.
 
 	:- public(string_2_chars/2).
-	:- if(current_logtalk_flag(prolog_dialect, swi)).
-		string_2_chars(Atom, Chars) :-
-			string_chars(Atom, Chars).
-	:- else.
-		string_2_chars(Atom, Chars) :-
-			atom_chars(Atom, Chars).
-	:- endif.
+        :- if(current_logtalk_flag(prolog_dialect, swi)).
+            string_2_chars(Atom, Chars) :-
+                string_chars(Atom, Chars).
+        :- else.
+            string_2_chars(Atom, Chars) :-
+                atom_chars(Atom, Chars).
+        :- endif.
 :- end_category.
