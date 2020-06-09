@@ -8,11 +8,11 @@
 %% and no swipl messages!
 writeln(SimpleVariable) :-
 	\+ is_list(SimpleVariable),
-	writeln([SimpleVariable]).
-	
+    write(SimpleVariable),
+    nl .
 
 writeln([]) :- 
-	nl, true.
+	nl .
 
 writeln([Message | More]) :-
 	write(Message),

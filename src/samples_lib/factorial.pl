@@ -10,19 +10,16 @@ set_local_search_path(LocalDir) :-
 set_local_search_path('lib').
 :- use_module(library(somemaths)).
 
-fact(0, F) :- 
-	!, 
-	F=1.
-fact(1, F) :- 
-	!, 
-	F=1.
+fact(0, 1) :- 
+	!.
+fact(1, 1) :- 
+	!.
 fact(N, F) :-
 	nat(N),
 	fact_aux(N, 1, F).
 
-fact_aux(1, Acc, Res) :-
-	!,
-	Res is Acc.
+fact_aux(1, Acc, Acc) :-
+	!.
 fact_aux(N, Acc, Res) :-
 	nat(N),
 	NewAcc is N * Acc,

@@ -15,8 +15,8 @@ write_fact(N) :-
 	writeln([N, ' != ', F]).
 
 write_all_facts(0) :-
-	!,
-	write_fact(0).
+	write_fact(0),
+	!.
 write_all_facts(N) :-
 	write_fact(N),
 	Nn is N - 1,
