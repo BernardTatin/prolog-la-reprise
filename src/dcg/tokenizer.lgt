@@ -2,8 +2,6 @@
 %% tokenizer.lgt
 %% ===============================
 
-
-
 :- object(tokenizer,
 	imports((externals))).
 
@@ -11,7 +9,6 @@
 		on_end_of_word(+Word, +Accumulator, -NewAccumulator)
 	*/
 	:- protected(on_end_of_word/3).
-
         on_end_of_word([], Accumulator, Accumulator).
         on_end_of_word(Word, Accumulator, NewAccumulator) :-
             ::reverse(Word, RWord),
@@ -22,7 +19,6 @@
 		on_space(+Chars, +Word, +Accumulator, -Result)
 	*/
 	:- protected(on_space/4).
-
         on_space(Chars, [], Accumulator, Result) :-
             cut_chars(Chars, [], Accumulator, Result).
         on_space(Chars, Word, Accumulator, Result) :-
@@ -33,7 +29,6 @@
 		cut_chars(+Chars, +Word, +Accumulator, -Result)
 	*/
 	:- protected(cut_chars/4).
-
         cut_chars([], [], Accumulator, Accumulator).
         cut_chars([], Word, Accumulator, Result) :-
             on_end_of_word(Word, Accumulator, Result).
@@ -54,7 +49,6 @@
 		tokenize(+String, -ListOfTokens)
 	*/
 	:- public(tokenize/2).
-
         tokenize(String, ListOfTokens) :-
             % String to a list of atoms
             ::string_2_chars(String, Chars),
