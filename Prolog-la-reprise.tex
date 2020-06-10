@@ -73,5 +73,8 @@ swipl -p library=... \\
     -c sourcefiles ...
 \end{lstlisting}
 
-Pour des exemples plus complets, consultez le(s) \texttt{Makefile}(s) des répertoires sources. 
+Pour des exemples plus complets, consultez le(s) \texttt{Makefile}(s) des répertoires sources.
+
+\section{LogTalk}
+L'installation se déroule très bien sous réserve de petites modifications dans l'\texttt{adapter} de \emph{Yap}. La procédure \texttt{member} doit être préfixée par \texttt{lists:} et la fonction \texttt{term\_hash} doit être préfixée par \texttt{terms}. Et là, tout devient normal.
 \end{document}
