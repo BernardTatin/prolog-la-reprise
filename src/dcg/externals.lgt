@@ -14,12 +14,30 @@
 		comment is 'Definitions for native predicates'
 	]).
 
+    :- public(member/2).
+        :- if(current_logtalk_flag(prolog_dialect, yap)).
+            member(Element, List) :-
+                lists:member(Element, List).
+        :- else.
+            member(Element, List) :-
+                {member(Element, List)}.
+        :- endif.
     :- public(reverse/2).
-        reverse(InputList, OutputList) :-
-            {reverse(InputList, OutputList)}.
+        :- if(current_logtalk_flag(prolog_dialect, yap)).
+            reverse(InputList, OutputList) :-
+                lists:reverse(InputList, OutputList).
+        :- else.
+            reverse(InputList, OutputList) :-
+                {reverse(InputList, OutputList)}.
+        :- endif.
 	:- public(append/3).
-        append(L1, L2, L3) :-
-            {append(L1, L2, L3)}.
+        :- if(current_logtalk_flag(prolog_dialect, yap)).
+            append(L1, L2, L3) :-
+                lists:append(L1, L2, L3).
+        :- else.
+            append(L1, L2, L3) :-
+                {append(L1, L2, L3)}.
+        :- endif.
 
 	:- public(is_space/1).
         :- if(current_logtalk_flag(prolog_dialect, swi)).
@@ -36,7 +54,7 @@
                 {is_punct(Char)}.
         :- else.
             is_punct(C) :-
-                member(C, ['.', ',', ';', ':', '!', '+', '-', '*', '/', '=']).
+                ::member(C, ['.', ',', ';', ':', '!', '+', '-', '*', '/', '=']).
         :- endif.
 
 	:- public(string_2_chars/2).
