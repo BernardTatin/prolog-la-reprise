@@ -15,7 +15,7 @@
 )).
 
 :- object(show_factorials,
-	imports((someio, somemaths, factorial))).
+	imports((someio, factorial))).
 
 	:- public(main/1).
 	    main(N) :-
