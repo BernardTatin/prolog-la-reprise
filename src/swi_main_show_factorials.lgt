@@ -11,14 +11,43 @@
 %%     ./show_factorials.exe
 %% ===============================
 
-:- initialization(main, main).
+%% :- initialization(main, main).
 
 :- include('lib/someio.lgt').
 :- include('lib/somemaths.lgt').
 :- include('lib/factorial.lgt').
 :- include('show_factorials.lgt').
 
-main :-
+dohelp :-
+    show_factorials::writeln('show_factorial [-h|--help]: this text'),
+    show_factorials::writeln('show_factorials N1 N2 ...: show factorials of N1, N2, ...'),
+    halt.
+
+on_args([]) :-
+    !.
+onargs(['-h' | _]) :-
+    dohelp.
+onargs(['--help' | _]) :-
+    dohelp.
+
+onargs([Atom | Rest]) :-
+    atom_chars(Atom, L),
+    number_chars(N, L),
+    !,
+    show_factorials::nat(N),
+    show_factorials::write_fact(N),
+    onargs(Rest).
+onargs([N | Rest]) :-
+    % \+show_factorials::nat(N),
+    show_factorials::writeln([N, ' is not an integer!']),
+    onargs(Rest).
+
+test_args([Progname]) :-
+    dohelp.
+test_args([ProgName |ListOfArgs]) :-
+    onargs(ListOfArgs).
+
+main(Argv) :-
     show_factorials::writeln('---------------------------------------'),
-    show_factorials::main(21),
+    test_args(Argv),
     halt.

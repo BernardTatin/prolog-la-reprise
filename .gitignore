@@ -5,6 +5,8 @@
 *.elf
 .depend*
 obj/
+# LogTalk
+.lgt_tmp/
 
 # Precompiled Headers
 *.gch
