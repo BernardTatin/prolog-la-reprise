@@ -104,6 +104,7 @@ dist/
 *.lol
 diamondrule.pdf
 main.pdf
+*.stzs
 
 tags
 build/
