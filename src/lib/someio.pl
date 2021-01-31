@@ -11,7 +11,7 @@ writeln(SimpleVariable) :-
     write(SimpleVariable),
     nl .
 
-writeln([]) :- 
+writeln([]) :-
 	nl .
 
 writeln([Message | More]) :-

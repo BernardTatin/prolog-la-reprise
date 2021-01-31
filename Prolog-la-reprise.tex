@@ -35,10 +35,51 @@
 \newtheorem{defn}{Définition}
 \newtheorem{thm}{Théorème}
 
-\lstset{emph={%  
-   {:-}%
-     },emphstyle={\color{red}\bfseries\underbar}%
-}%
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{boxhandler}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  %deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  language=Prolog,                 % the language of the code
+  keywordstyle={\color{green}\bfseries\itshape},       % keyword style
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+
+\DeclareCaptionFont{white}{ \color{white} }
+\DeclareCaptionFormat{listing}{
+  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+    \parbox{0.8\textwidth}{\hspace{15pt}#1#2#3}
+  }
+}
+\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=2em, font={footnotesize}}
+
 
 \begin{document}
 
@@ -50,35 +91,27 @@
 \section{le langage}
 Commençons par quelque chose de simple:
 
-\begin{lstlisting}[language=Prolog]
-nat(X):-
-	integer(X),
-	X > -1.
-\end{lstlisting}
-
-A noter que la version suivante, plus \emph{naturelle}, provoque une erreur:
-
-\begin{lstlisting}[language=Prolog]
+\begin{lstlisting}[language=Prolog, caption=définition de l'ensemble des entiers]
 nat(X):-
 	integer(X),
 	X >= 0.
 \end{lstlisting}
 
-Pour rappel, \texttt{,} est la \textit{conjonction} soit le \textit{et} logique, tandis que \texttt{;} indique \textit{disjonction}, soit le \textit{ou} logique.
+Pour rappel, '\texttt{,}' est la \textit{conjonction} soit le \textit{et} logique, tandis que '\texttt{;}' indique \textit{disjonction}, soit le \textit{ou} logique.
 
 \section{l'environnement \texttt{swipl}}
 
 C'est simple à lancer: \texttt{swipl}. 
 
-Pour profiter de répertoire contenant des bibliothèques personelle, il faut, autant pour la compilation que pour l'interprétation, rajouter le paramètre:
-\begin{lstlisting}[language=sh] 
--p library=$(pwd)/lib:...
+Pour profiter de répertoire contenant des bibliothèques personnelles, il faut, autant pour la compilation que pour l'interprétation, rajouter le paramètre:
+\begin{lstlisting}[language=sh, caption=swipl: démarrer avec le chemin des bibliothèques] 
+swipl -p library=$(pwd)/lib:...
 \end{lstlisting}
  
 à moduler en fonction de la configuration.
 
 Pour créer un binaire exécutable, il faut lancer la commande:
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}[language=sh, caption=swipl: créer un binaire exécutable]
 swipl -p library=... \\
     --goal=main \\
     --stand_alone=true \\
@@ -86,8 +119,30 @@ swipl -p library=... \\
     -c sourcefiles ...
 \end{lstlisting}
 
-Pour des exemples plus complets, consultez le(s) \texttt{Makefile}(s) des répertoires sources.
+Pour des exemples plus complets, con\-sul\-tez le(s) \texttt{Makefile}(s) des ré\-per\-toi\-res sour\-ces.
 
 \section{LogTalk}
-L'installation se déroule très bien sous réserve de petites modifications dans l'\texttt{adapter} de \emph{Yap}. La procédure \texttt{member} doit être préfixée par \texttt{lists:} et la fonction \texttt{term\_hash} doit être préfixée par \texttt{terms}. Et là, tout devient normal.
+\subsection{notes pour l'installation}
+\subsubsection{\textit{Yap}}
+
+L'installation se déroule très bien sous réserve de petites
+modifications dans l'\textit{adapter} de \emph{yap}. 
+La procédure \texttt{member} doit être préfixée
+par \texttt{lists:} et la fonction \texttt{term\_hash}
+doit être préfixée par \texttt{terms:}. 
+Et là, tout devient normal.
+
+\subsection{pourquoi \emph{LogTalk} ?}
+Avec les \emph{catégories} et les objets, \emph{LogTalk} permet de mieux gérer les espaces de noms. Surtout, \emph{LogTalk} permet un portage du code entre plusieurs implémentations de \emph{Prolog} sans modification du code ou, au pire, à l'aide de directives de compilation conditionnelles. Voici un exemple de ces dernières:
+
+\begin{lstlisting}[language=Prolog, caption=LogTalk compilation conditionnelle]
+:- if(current_logtalk_flag(prolog_dialect, swi)).
+    string_2_chars(Atom, Chars) :-
+        string_chars(Atom, Chars).
+:- else.
+    string_2_chars(Atom, Chars) :-
+        atom_chars(Atom, Chars).
+:- endif.
+\end{lstlisting}
+
 \end{document}

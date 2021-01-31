@@ -3,8 +3,8 @@
 # ============================================
 
 PL = swipl
-PLOPTIONS = -p library=./lib:./samples_lib --goal=main --stand_alone=true 
-## --quiet 
+PLOPTIONS = -p library=./lib:./samples_lib --goal=main --stand_alone=true
+## --quiet
 
 INDEXLIB = ./lib/INDEX.pl
 SRCLIB = ./lib/someio.pl ./lib/somemaths.pl
@@ -24,7 +24,7 @@ $(INDEXLIB): $(SRCLIB)
 $(INDEXSLIB): $(SRCSLIB)
 	swipl -g 'make_library_index(samples_lib)' -t halt
 
-$(EXETF): $(INDEXLIB) $(INDEXSLIB) $(SRCTF) $(MAINTF).pl 
+$(EXETF): $(INDEXLIB) $(INDEXSLIB) $(SRCTF) $(MAINTF).pl
 	$(PL) $(PLOPTIONS) -o $@ -c $(SRCTF) $(MAINTF).pl
 
 clean:

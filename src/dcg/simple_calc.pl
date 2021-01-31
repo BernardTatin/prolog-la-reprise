@@ -1,7 +1,7 @@
 %% ===============================
 %% simple_calc.pl
 %%
-%% extension of the code in 
+%% extension of the code in
 %%		https://blog.adrianistan.eu/prolog-dcg-gramaticas-clausula-definida
 %% with the help of Google Translate from spanish to english
 %%
@@ -54,7 +54,7 @@ show_out(X) :-
 
 /*
     executions
-*/    
+*/
 
 %% simple number
 execute(node(number, Out), Out).
